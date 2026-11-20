@@ -1,0 +1,9 @@
+# .gitignore for JSM Bags
+node_modules/
+.DS_Store
+Thumbs.db
+*.zip
+*.log
+_backup_pre_video2/
+*.mp4
+url_crop*.png

@@ -9,6 +9,10 @@
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-heading: 'Plus Jakarta Sans', 'Inter', -apple-system, sans-serif;
 
+  --primary-forest: #164E3D;
+  --primary-forest-hover: #133E31;
+  --primary-forest-light: #EBF4EC;
+
   --bg-main: #FFFFFF;
   --bg-subtle: #F9FAFB;
   --bg-card: #FFFFFF;
@@ -99,7 +103,8 @@ body {
   font-size: 0.8125rem;
   font-weight: 600;
   letter-spacing: 0.025em;
-  padding: 8px 16px;
+  padding: 10px 18px;
+  line-height: 1.45;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -120,9 +125,9 @@ body {
 }
 @media (max-width: 640px) {
   .announcement-bar {
-    font-size: 0.75rem;
-    padding: 7px 12px;
-    line-height: 1.35;
+    font-size: 0.78rem;
+    padding: 10px 14px;
+    line-height: 1.45;
   }
 }
 
@@ -138,7 +143,7 @@ body {
 .header-top-grid {
   max-width: 1440px;
   margin: 0 auto;
-  padding: 12px 24px 8px;
+  padding: 14px 24px 10px;
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
@@ -148,14 +153,14 @@ body {
 }
 @media (max-width: 768px) {
   .header-top-grid {
-    padding: 8px 12px 6px;
-    gap: 8px;
+    padding: 12px 16px 10px;
+    gap: 12px;
   }
 }
 @media (max-width: 480px) {
   .header-top-grid {
-    padding: 7px 10px 5px;
-    gap: 6px;
+    padding: 12px 14px 10px;
+    gap: 10px;
     grid-template-columns: auto 1fr auto;
   }
 }
@@ -211,8 +216,9 @@ body {
   font-size: 1.45rem;
   font-weight: 800;
   color: #1E3D34;
-  letter-spacing: -0.01em;
-  line-height: 1;
+  letter-spacing: 0.01em;
+  line-height: 1.15;
+  margin-bottom: 2px;
 }
 .header-center-sub {
   font-size: 0.6875rem;
@@ -221,6 +227,7 @@ body {
   letter-spacing: 0.08em;
   text-transform: uppercase;
   margin-top: 3px;
+  line-height: 1.25;
 }
 
 /* Right Tools: Profile, Cart, WhatsApp */
@@ -1179,14 +1186,35 @@ body {
 }
 .spotlight-file-input {
   width: 100%;
-  font-size: 0.75rem;
+  font-size: 0.8125rem;
   color: #475569;
+}
+.custom-file-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: #164E3D !important;
+  color: #FFFFFF !important;
+  font-weight: 700;
+  border-radius: 8px;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s ease;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+.custom-file-btn:hover,
+.custom-file-btn:active {
+  background: #133E31 !important;
+  transform: translateY(-1px);
 }
 .file-hint {
   display: block;
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   color: #64748B;
-  margin-top: 3px;
+  margin-top: 4px;
 }
 
 .spotlight-actions {
@@ -3403,26 +3431,51 @@ body {
   100% { transform: translate(-50%, 10px); opacity: 0; }
 }
 
-/* Mobile Responsiveness (360px, 390px, 430px) */
-@media (max-width: 640px) {
+/* Mobile Responsiveness (<= 768px): No 460vh dead space, no sticky overlap glitch */
+@media (max-width: 768px) {
   .jsm-cinematic-section {
-    height: 460vh;
-    margin-top: 24px;
+    height: auto !important;
+    min-height: auto !important;
+    margin-top: 24px !important;
+    margin-bottom: 24px !important;
+    padding: 28px 12px 32px !important;
+    overflow: hidden !important;
+    position: relative !important;
+    z-index: 2 !important;
+    background: #080E0A !important;
+  }
+
+  .cinematic-sticky-wrapper {
+    position: relative !important;
+    height: 480px !important;
+    max-height: 65vh !important;
+    top: auto !important;
+    left: auto !important;
+    width: 100% !important;
+    border-radius: 16px !important;
+    overflow: hidden !important;
+    margin: 0 auto !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4) !important;
   }
 
   .cinematic-header-overlay {
-    top: 12px;
+    top: 14px;
     padding: 0 10px;
+    position: absolute !important;
+    z-index: 10 !important;
   }
 
   .cinematic-chapter-nav {
     gap: 6px;
     margin-bottom: 6px;
+    pointer-events: auto !important;
   }
 
   .cinematic-chapter-pill {
-    padding: 3px 10px;
-    font-size: 0.6875rem;
+    padding: 4px 12px;
+    font-size: 0.72rem;
+    pointer-events: auto !important;
+    cursor: pointer !important;
   }
 
   .cinematic-badge {
@@ -3450,8 +3503,7 @@ body {
   }
 
   .cinematic-scroll-hint {
-    bottom: 16px;
-    font-size: 0.625rem;
+    display: none !important;
   }
 }
 
@@ -3746,8 +3798,8 @@ body {
 .admin-btn-primary {
   width: 100%;
   padding: 12px 18px;
-  background: var(--primary-forest);
-  color: #FFFFFF;
+  background: #164E3D !important;
+  color: #FFFFFF !important;
   border: none;
   border-radius: var(--radius-md);
   font-size: 0.9375rem;
@@ -3758,10 +3810,24 @@ body {
   justify-content: center;
   gap: 8px;
   transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(22, 78, 61, 0.25);
 }
 
-.admin-btn-primary:hover {
-  background: #445625;
+.admin-btn-primary:hover,
+.admin-btn-primary:active,
+.admin-btn-primary:focus {
+  background: #133E31 !important;
+  color: #FFFFFF !important;
+}
+
+#productSaveBtn {
+  background: #164E3D !important;
+  color: #FFFFFF !important;
+}
+
+#saveCouponBtn {
+  background: #164E3D !important;
+  color: #FFFFFF !important;
 }
 
 .admin-btn-primary:disabled {
@@ -4867,13 +4933,16 @@ body {
 
 .admin-textarea {
   width: 100%;
-  padding: 10px 12px;
+  min-height: 120px;
+  padding: 12px 14px;
   border: 1px solid #CBD5E1;
   border-radius: 8px;
-  font-family: var(--font-body);
-  font-size: 0.875rem;
+  font-family: inherit;
+  font-size: 0.9375rem;
+  line-height: 1.5;
   color: #0F172A;
   resize: vertical;
+  box-sizing: border-box;
 }
 
 .admin-textarea:focus {
@@ -5011,26 +5080,9 @@ body {
   border-color: #0F172A;
 }
 
-/* Header Admin Button */
+/* Header Admin Button - Hidden per user requirement (Staff portal accessed from Drawer & Footer) */
 .header-admin-trigger-btn {
-  background: #F8FAFC;
-  border: 1px solid #CBD5E1;
-  color: #1E293B;
-  font-size: 0.75rem;
-  font-weight: 700;
-  padding: 6px 12px;
-  border-radius: 6px;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  transition: all 0.2s ease;
-}
-
-.header-admin-trigger-btn:hover {
-  background: #0F172A;
-  color: #FFFFFF;
-  border-color: #0F172A;
+  display: none !important;
 }
 
 /* Drawer Admin Trigger Button */
@@ -5413,22 +5465,22 @@ body {
     box-sizing: border-box !important;
   }
 
-  /* Header adjustments for mobile */
+  /* Header adjustments for mobile: Generous breathing room & centered branding */
   .header-top-grid {
     display: flex !important;
     align-items: center !important;
     justify-content: space-between !important;
-    padding: 8px 12px !important;
+    padding: 11px 14px 10px !important;
     width: 100% !important;
     box-sizing: border-box !important;
-    gap: 8px !important;
+    gap: 12px !important;
   }
 
   /* Left tools: hamburger menu button */
   .header-left-tools {
     display: flex !important;
     align-items: center !important;
-    gap: 6px !important;
+    gap: 8px !important;
     flex-shrink: 0 !important;
   }
 
@@ -5438,7 +5490,7 @@ body {
     display: none !important;
   }
 
-  /* Center Logo: compact & centered */
+  /* Center Logo: compact & centered with comfortable vertical rhythm */
   .header-center-logo {
     flex: 1 !important;
     display: flex !important;
@@ -5447,54 +5499,57 @@ body {
     justify-content: center !important;
     text-align: center !important;
     min-width: 0 !important;
+    padding: 0 4px !important;
   }
 
   .header-center-title {
-    font-size: 1.15rem !important;
+    font-size: 1.2rem !important;
     letter-spacing: 0.02em !important;
+    line-height: 1.2 !important;
+    margin-bottom: 2px !important;
     white-space: nowrap !important;
   }
 
   .header-center-sub {
-    font-size: 0.58rem !important;
-    letter-spacing: 0.04em !important;
+    font-size: 0.62rem !important;
+    letter-spacing: 0.05em !important;
+    line-height: 1.25 !important;
+    margin-top: 2px !important;
     white-space: nowrap !important;
   }
 
   .header-center-logo-icon {
-    width: 26px !important;
-    height: 26px !important;
-    margin-bottom: 1px !important;
+    width: 28px !important;
+    height: 28px !important;
+    margin-bottom: 2px !important;
   }
 
-  /* Right tools: compact Admin, Cart, WhatsApp */
+  /* Right tools: compact Cart & WhatsApp */
   .header-right-tools {
     display: flex !important;
     align-items: center !important;
     justify-content: flex-end !important;
-    gap: 6px !important;
+    gap: 8px !important;
     flex-shrink: 0 !important;
   }
 
-  /* Compact Admin button on mobile */
+  /* Top Admin trigger button hidden (accessed from bottom drawer & footer) */
   .header-admin-trigger-btn {
-    padding: 5px 8px !important;
-    font-size: 0.72rem !important;
-    gap: 3px !important;
+    display: none !important;
   }
 
   /* Compact Cart button */
   .icon-btn-header {
-    width: 34px !important;
-    height: 34px !important;
+    width: 36px !important;
+    height: 36px !important;
     flex-shrink: 0 !important;
   }
 
   /* Compact WhatsApp button: icon only or small text on mobile */
   .header-wa-btn-sm {
-    padding: 6px 10px !important;
-    font-size: 0.75rem !important;
-    gap: 4px !important;
+    padding: 7px 12px !important;
+    font-size: 0.78rem !important;
+    gap: 5px !important;
   }
 
   /* Navigation strip: smooth horizontal scroll without overflow */

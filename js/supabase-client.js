@@ -1410,7 +1410,7 @@
     brand_name: 'JSM Bags',
     phone: '+91 94408 63516',
     whatsapp_number: '919440863516',
-    address: 'Innes Peta, Rajahmundry, Andhra Pradesh - 533101, India',
+    address: 'Maya bazar, Innespeta, Rajamahendravaram, Andhra Pradesh 533101, India',
     announcement: 'Handcrafted Quality Bags Direct from Manufacturer • Rajahmundry • Pan-India & Worldwide Delivery',
     announcement_enabled: true
   };
@@ -1445,7 +1445,7 @@
       brand_name: settings.brand_name || 'JSM Bags',
       phone: settings.phone || '+91 94408 63516',
       whatsapp_number: settings.whatsapp_number ? settings.whatsapp_number.replace(/\D/g, '') : '919440863516',
-      address: settings.address || 'Innes Peta, Rajahmundry, Andhra Pradesh - 533101, India',
+      address: settings.address || 'Maya bazar, Innespeta, Rajamahendravaram, Andhra Pradesh 533101, India',
       announcement: settings.announcement !== undefined ? settings.announcement : DEFAULT_STORE_SETTINGS.announcement,
       announcement_enabled: settings.announcement_enabled !== undefined ? Boolean(settings.announcement_enabled) : true,
       updated_at: new Date().toISOString()

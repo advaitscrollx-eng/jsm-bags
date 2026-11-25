@@ -638,6 +638,7 @@
     if ($('productFormSub')) $('productFormSub').textContent = 'Fill in details, upload photos, and publish to the live storefront';
     if ($('saveBtnText')) $('saveBtnText').textContent = 'Publish Product';
     if ($('mainImageFileLabel')) $('mainImageFileLabel').textContent = 'Main Product Image (.jpg, .png, .webp) *';
+    if ($('mainImageChosenName')) $('mainImageChosenName').textContent = 'No photo selected';
     if ($('prodMainImageFile')) $('prodMainImageFile').required = true;
     if ($('prodBrand')) $('prodBrand').value = 'JSM Bags';
     if ($('prodStockQuantity')) $('prodStockQuantity').value = 100;
@@ -885,9 +886,12 @@
     if (!file) {
       adminState.pendingCompressedBlob = null;
       adminState.pendingCompressedStats = null;
+      if ($('mainImageChosenName')) $('mainImageChosenName').textContent = 'No photo selected';
       if (previewContainer) previewContainer.style.display = 'none';
       return;
     }
+
+    if ($('mainImageChosenName')) $('mainImageChosenName').textContent = '✓ ' + file.name;
 
     try {
       if (previewContainer) previewContainer.style.display = 'block';
@@ -1715,7 +1719,7 @@
       if ($('setBrandName')) $('setBrandName').value = settings.brand_name || 'JSM Bags';
       if ($('setPhone')) $('setPhone').value = settings.phone || '+91 94408 63516';
       if ($('setWhatsApp')) $('setWhatsApp').value = settings.whatsapp_number || '919440863516';
-      if ($('setAddress')) $('setAddress').value = settings.address || 'Innes Peta, Rajahmundry, Andhra Pradesh - 533101, India';
+      if ($('setAddress')) $('setAddress').value = settings.address || 'Maya bazar, Innespeta, Rajamahendravaram, Andhra Pradesh 533101, India';
       if ($('setAnnouncement')) $('setAnnouncement').value = settings.announcement || '';
       if ($('setAnnouncementEnabled')) $('setAnnouncementEnabled').checked = settings.announcement_enabled !== false;
     }

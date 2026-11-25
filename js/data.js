@@ -9,7 +9,7 @@ const STORE_CONFIG = {
   tagline: 'Manufacturer, Wholesaler & Digital Printing Specialists',
   whatsappNumber: '919440863516',
   phoneDisplay: '+91 94408 63516',
-  address: 'Innes Peta, Rajahmundry, Andhra Pradesh - 533101, India',
+  address: 'Maya bazar, Innespeta, Rajamahendravaram, Andhra Pradesh 533101, India',
   gstin: '',
   msme: '',
   currency: '₹',

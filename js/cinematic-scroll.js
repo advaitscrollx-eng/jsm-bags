@@ -386,16 +386,19 @@
       scrollTriggerInstance = null;
     }
 
-    // Check for Reduced Motion accessibility
+    // Check for Reduced Motion accessibility or Mobile viewport (<= 768px)
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReducedMotion) {
+    const isMobile = window.innerWidth <= 768;
+
+    if (isMobile || prefersReducedMotion) {
       if (loader) loader.style.display = 'none';
       if (scrollHint) scrollHint.style.display = 'none';
       renderProgress(0);
+      setupMobileShowcase();
       return;
     }
 
-    // GSAP + ScrollTrigger Engine
+    // GSAP + ScrollTrigger Engine (Desktop only - avoids mobile pin fights & dead space)
     if (window.gsap && window.ScrollTrigger) {
       gsap.registerPlugin(ScrollTrigger);
 
@@ -458,10 +461,85 @@
     }
   }
 
+  // Mobile Clean Showcase: Seamless frame rotation loop & touch scrub without scroll-trapping
+  let mobileLoopTimer = null;
+  let mobileCurrentProgress = 0;
+
+  function setupMobileShowcase() {
+    if (!section || !canvas) return;
+
+    let isSectionVisible = false;
+    let isUserTouching = false;
+    let touchStartX = 0;
+    let touchStartProgress = 0;
+
+    // Interactive Touch Swipe on Canvas to rotate 360°
+    canvas.addEventListener('touchstart', (e) => {
+      if (e.touches.length === 1) {
+        isUserTouching = true;
+        touchStartX = e.touches[0].clientX;
+        touchStartProgress = mobileCurrentProgress;
+      }
+    }, { passive: true });
+
+    canvas.addEventListener('touchmove', (e) => {
+      if (isUserTouching && e.touches.length === 1 && touchStartX) {
+        const dx = e.touches[0].clientX - touchStartX;
+        const deltaProgress = -dx / (window.innerWidth * 1.2);
+        let newP = touchStartProgress + deltaProgress;
+        if (newP < 0) newP = 0;
+        if (newP > 1) newP = 1;
+        mobileCurrentProgress = newP;
+        requestProgressRender(newP);
+      }
+    }, { passive: true });
+
+    canvas.addEventListener('touchend', () => {
+      isUserTouching = false;
+    }, { passive: true });
+
+    // Smooth subtle frame rotation loop when visible in viewport
+    function loopStep() {
+      if (!isEnginePaused && isSectionVisible && !isUserTouching) {
+        if (mobileCurrentProgress <= 0.45) {
+          mobileCurrentProgress += 0.0025;
+          if (mobileCurrentProgress > 0.45) mobileCurrentProgress = 0;
+        } else if (mobileCurrentProgress >= 0.54) {
+          mobileCurrentProgress += 0.0025;
+          if (mobileCurrentProgress > 0.99) mobileCurrentProgress = 0.55;
+        }
+        requestProgressRender(mobileCurrentProgress);
+      }
+      mobileLoopTimer = requestAnimationFrame(loopStep);
+    }
+
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          isSectionVisible = entry.isIntersecting;
+        });
+      }, { threshold: 0.1 });
+      observer.observe(section);
+    } else {
+      isSectionVisible = true;
+    }
+
+    if (mobileLoopTimer) cancelAnimationFrame(mobileLoopTimer);
+    mobileLoopTimer = requestAnimationFrame(loopStep);
+  }
+
   // Interactive Chapter Click Seeking
   window.seekCinematicScene = function (sceneNum) {
     if (!section) return;
     const targetProgress = sceneNum === 1 ? 0.02 : 0.58;
+    const isMobile = window.innerWidth <= 768;
+
+    if (isMobile) {
+      mobileCurrentProgress = targetProgress;
+      requestProgressRender(targetProgress);
+      return;
+    }
+
     const rect = section.getBoundingClientRect();
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
     const sectionStart = rect.top + scrollTop;

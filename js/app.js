@@ -1544,7 +1544,7 @@
             </div>
             <div style="display: flex; justify-content: space-between;">
               <span style="color: #64748B;">Head Office:</span>
-              <strong style="color: #0F172A;">Innes Peta, Rajahmundry (AP)</strong>
+              <strong style="color: #0F172A;">Maya bazar, Innespeta, Rajamahendravaram (AP)</strong>
             </div>
           </div>
           <p style="font-size: 0.8125rem; color: #334155; margin-bottom: 16px;">
@@ -1728,7 +1728,7 @@
       msg += `\n`;
     }
     msg += `\nPlease share bag recommendations, digital sample preview & bulk/wholesale quote.\n`;
-    msg += `🏭 *Factory Unit:* Innes Peta, Rajahmundry`;
+    msg += `🏭 *Factory Unit:* Maya bazar, Innespeta, Rajamahendravaram`;
 
     const url = `https://wa.me/${STORE_CONFIG.whatsappNumber}?text=` + encodeURIComponent(msg);
     window.open(url, '_blank');
